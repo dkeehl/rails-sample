@@ -45,3 +45,11 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
+
+app_dir = File.expand_path("../..", __FILE__)
+shared_dir = "#{app_dir}/shared"
+
+bind "unix://#{shared_dir}/sockets/puma.sock"
+
+pidfile "#{shared_dir}/pids/puma.pid"
+
