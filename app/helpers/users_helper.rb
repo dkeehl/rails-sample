@@ -7,8 +7,10 @@ module UsersHelper
     image_tag(gravatar_url, alt: user.name, class: 'gravatar')
   end
 
-  def photo_for(user)
-    img = "#{user.name}.jpg"
+  def photo_for(user, size: 80)
+    #img = "#{user.name}.jpg"
+    img = 'default.jpg'
     image_tag(img, alt: user.name, class: 'gravatar')
   end
+
 end
