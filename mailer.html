@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html><head>
+<meta name="viewport" content="width=device-width" />
+<style type="text/css">
+  html, body, iframe {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  header {
+    width: 100%;
+    padding: 10px 0 0 0;
+    margin: 0;
+    background: white;
+    font: 12px "Lucida Grande", sans-serif;
+    border-bottom: 1px solid #dedede;
+    overflow: hidden;
+  }
+
+  dl {
+    margin: 0 0 10px 0;
+    padding: 0;
+  }
+
+  dt {
+    width: 80px;
+    padding: 1px;
+    float: left;
+    clear: left;
+    text-align: right;
+    color: #7f7f7f;
+  }
+
+  dd {
+    margin-left: 90px; /* 80px + 10px */
+    padding: 1px;
+  }
+
+  dd:empty:before {
+    content: "\00a0"; // &nbsp;
+  }
+
+  iframe {
+    border: 0;
+    width: 100%;
+  }
+</style>
+</head>
+
+<body>
+<header>
+  <dl>
+
+
+    <dt>From:</dt>
+    <dd>noreply@example.com</dd>
+
+
+    <dt>To:</dt>
+    <dd>admin@sample.com</dd>
+
+
+    <dt>Date:</dt>
+    <dd>Mon, 24 Jul 2017 08:52:25 +0000</dd>
+
+    <dt>Subject:</dt>
+    <dd><strong>Account activation</strong></dd>
+
+
+      <dd>
+        <select onchange="formatChanged(this);">
+          <option  value="?part=text%2Fhtml">View as HTML email</option>
+          <option  value="?part=text%2Fplain">View as plain-text email</option>
+        </select>
+      </dd>
+  </dl>
+</header>
+
+  <iframe seamless name="messageBody" src="?part=text%2Fhtml"></iframe>
+
+<script>
+  function formatChanged(form) {
+    var part_name = form.options[form.selectedIndex].value
+    var iframe =document.getElementsByName('messageBody')[0];
+    iframe.contentWindow.location.replace(part_name);
+
+    if (history.replaceState) {
+      var url    = location.pathname.replace(/\.(txt|html)$/, '');
+      var format = /html/.test(part_name) ? '.html' : '.txt';
+      window.history.replaceState({}, '', url + format);
+    }
+  }
+</script>
+
+</body>
+</html>
