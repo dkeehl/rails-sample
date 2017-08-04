@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
 
   def remember
     self.remember_token = User.new_token
@@ -36,6 +36,22 @@ class User < ApplicationRecord
     UserMailer.account_activation(self).deliver_now
   end
 
+  # password reset
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_columns reset_digest: User.digest(reset_token),
+                   reset_sent_at: Time.zone.now
+  end
+
+  def send_password_reset_mail
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
+  # securty utilities
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
