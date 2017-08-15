@@ -144,6 +144,48 @@ aside {
   margin-top: 15px;
 }
 
+.stats {
+  margin-top: 0;
+  padding: 0;
+
+  a {
+    color: gray;
+
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $gray-lighter;
+  }
+
+  strong {
+    display: block;
+  }
+
+  overflow: auto;
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+
+  .gravatar {
+    margin: 1px;
+  }
+
+  a {
+    padding: 0;
+    border: 0;
+  }
+}
 /* forms */
 
 input, textarea, select, .uneditable-input {
@@ -250,6 +292,7 @@ span.picture {
     border: 0;
   }
 }
+
 
 /* miscellaneous */
 

@@ -8,9 +8,8 @@ module UsersHelper
   end
 
   def photo_for(user, size: 80)
-    #img = "#{user.name}.jpg"
     img = 'default.jpg'
-    image_tag(img, alt: user.name, class: 'gravatar')
+    image_tag(img, alt: user.name, class: 'gravatar', size: size)
   end
 
 end
