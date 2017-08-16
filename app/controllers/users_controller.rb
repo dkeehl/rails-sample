@@ -32,7 +32,8 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
+    update_params = update_photo? ? photo_param : user_params
+    if @user.update_attributes(update_params)
       flash[:success] = 'Profile updated'
       redirect_to @user
     else
@@ -78,6 +79,14 @@ class UsersController < ApplicationController
 
     def admin_user
       redirect_to(root_url) unless current_user.admin?
+    end
+
+    def update_photo?
+      params[:update_photo] && params[:update_photo] == '1'
+    end
+
+    def photo_param
+      params.require(:user).permit(:photo)
     end
 
 end
